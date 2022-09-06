@@ -17,6 +17,7 @@ import {
 } from '../services/supplier.service';
 
 import { createPerson } from '../services/person.service';
+import { validateObjectID } from '../utils/validateObjectId';
 
 export async function createSupplierHandler(req: Request<{}, {}, CreateSupplierInput["body"]>, res: Response){
     try {
@@ -103,6 +104,7 @@ export async function createSupplierHandler(req: Request<{}, {}, CreateSupplierI
 export async function findSuppliersHandler(req: Request, res: Response){
     try {
         const suppliers = await findSuppliers();
+
         return res.status(200).json({
             ok: true,
             data: suppliers
@@ -119,6 +121,15 @@ export async function findSuppliersHandler(req: Request, res: Response){
 export async function findSupplierHandler(req: Request<ReadSupplierInput['params']>, res: Response){
     try {
         const supplierId = req.params.supplierId;
+
+        const message = validateObjectID(supplierId);
+
+        if(message !== '') {
+            return res.status(400).send({
+                ok: false,
+                message 
+            });
+        }
 
         const supplier = await findSupplier(supplierId);
 
@@ -148,6 +159,16 @@ export async function updateSupplierHandler(
 ){
     try {
         const supplierId = req.params.supplierId;
+
+        const message = validateObjectID(supplierId);
+
+        if(message !== '') {
+            return res.status(400).send({
+                ok: false,
+                message 
+            });
+        }
+
         const supplier = await findSupplier(supplierId);
         
         if(!supplier){
@@ -179,6 +200,16 @@ export async function deleteSupplierHandler(
 ){
     try {
         const supplierId = req.params.supplierId;
+
+        const message = validateObjectID(supplierId);
+
+        if(message !== '') {
+            return res.status(400).send({
+                ok: false,
+                message 
+            });
+        }
+        
         const supplier = await findSupplier(supplierId);
 
         if(!supplier){

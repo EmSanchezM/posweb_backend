@@ -15,6 +15,7 @@ import {
     findArea,
     updateArea
 } from '../services/area.service';
+import { validateObjectID } from '../utils/validateObjectId';
 
 export async function createAreaHandler(req: Request<{}, {}, CreateAreaInput["body"]>, res: Response){
     try {
@@ -62,6 +63,15 @@ export async function findAreasHandler(req: Request, res: Response){
 export async function findAreaHandler(req: Request<ReadAreaInput['params']>, res: Response){
     try {
         const areaId = req.params.areaId;
+        
+        const message = validateObjectID(areaId);
+
+        if(message !== '') {
+            return res.status(400).send({
+                ok: false,
+                message 
+            });
+        }
 
         const area = await findArea(areaId);
 
@@ -91,6 +101,15 @@ export async function updateAreaHandler(
 ){
     try {
         const areaId = req.params.areaId;
+        
+        const message = validateObjectID(areaId);
+
+        if(message !== '') {
+            return res.status(400).send({
+                ok: false,
+                message 
+            });
+        }
         const area = await findArea(areaId);
         
         if(!area){
@@ -122,8 +141,18 @@ export async function deleteAreaHandler(
 ){
     try {
         const areaId = req.params.areaId;
-        const area = await findArea(areaId);
 
+        const message = validateObjectID(areaId);
+
+        if(message !== '') {
+            return res.status(400).send({
+                ok: false,
+                message 
+            });
+        }
+
+        const area = await findArea(areaId);
+        
         if(!area){
             return res.status(404).json({
                 ok: false,

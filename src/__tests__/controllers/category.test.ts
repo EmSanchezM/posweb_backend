@@ -1,11 +1,10 @@
 import supertest from "supertest";
 import chai from "chai";
 import chaiEach from "chai-each";
-
 import { MongoMemoryServer } from "mongodb-memory-server";
 import mongoose from "mongoose";
 import createServer from "../../utils/server";
-import { createArea } from "../../services/area.service";
+import { createCategory } from "../../services/category.service";
 import { signAccessToken } from "../../services/auth.service";
 
 const { use, expect } = chai;
@@ -23,41 +22,33 @@ const authUser = {
     isActive: true
 };
 
-export const areaPayload = {
+export const categoryPayload = {
     index: 1,
     parentCode: 1,
-    nameArea: 'Cocina',
-    codeArea: 'Cocina-01',
-    phoneArea: '+50497412003',
-    employee: new mongoose.Types.ObjectId().toString(),
-    details: 'Cocina',
+    codeCategory: 'Cocina-01',
+    nameCategory: 'Cocina',
+    description: 'Cocina',
     isActive: true 
 };
 
-export const areaUpdate = {
+export const categoryUpdate = {
     index: 1,
     parentCode: 1,
-    nameArea: 'Estante',
-    codeArea: 'Estante-01',
-    phoneArea: '+50497412003',
-    employee: new mongoose.Types.ObjectId().toString(),
-    details: 'Estante',
+    nameCategory: 'Electrodomesticos',
+    description: 'Electrodomesticos',
     isActive: true 
 };
 
-export const areaWithoutFields = {
+export const categoryWithoutFields = {
     parentCode: 1,
-    nameArea: 'Cocina',
-    codeArea: 'Cocina-01',
-    phoneArea: '+50497412003',
-    employee: new mongoose.Types.ObjectId().toString(),
-    details: 'Cocina',
+    nameCategory: 'Cocina',
+    description: 'Cocina',
     isActive: true 
 };
 
-let areaCreated: string;
+let categoryCreated: string;
 
-describe('(/api/areas) - Areas', () => {
+describe('(/api/categories) - Categories', () => {
     beforeAll( async() => {
         const mongoServer = await MongoMemoryServer.create();
 
@@ -71,10 +62,10 @@ describe('(/api/areas) - Areas', () => {
         await mongoose.connection.close(); 
     });
 
-    describe('POST (/api/areas) Create area', () => {
+    describe('POST (/api/categories) Create category', () => {
         it('Should be reject because not send data', async() => {
             const { statusCode } = await supertest(app)
-                .post('/api/areas')
+                .post('/api/categories')
                 .set('Cookie', [`jwt=${accessToken}`])
             
             expect(statusCode).to.equal(400); 
@@ -83,41 +74,41 @@ describe('(/api/areas) - Areas', () => {
 
         it('Should be reject because missing fields', async() => {
             const { statusCode, body } = await supertest(app)
-                .post('/api/areas')
+                .post('/api/categories')
                 .set('Cookie', [`jwt=${accessToken}`])
-                .send(areaWithoutFields);
+                .send(categoryWithoutFields);
             
             expect(statusCode).to.equal(400); 
             expect(body).to.be.an('array');
             const [error] = body;
-            expect(error.message).to.equal('Indice de area padre es requerida'); 
+            expect(error.message).to.equal('Indice de categoria padre es requerida'); 
         });
 
-        it('Should be create area successfully', async() => {
+        it('Should be create category successfully', async() => {
             const { statusCode, body } = await supertest(app)
-                .post('/api/areas')
+                .post('/api/categories')
                 .set('Cookie', [`jwt=${accessToken}`])
-                .send(areaPayload);
+                .send(categoryPayload);
             
             expect(statusCode).to.equal(201);
 
             expect(body).to.be.an('object');
-            expect(body.message).to.equal('Area creada exitosamente');
+            expect(body.message).to.equal('Categoría creada exitosamente');
 
             expect(body.data)
                 .to.be.an('object')
-                .to.include.all.keys('_id', 'codeArea', 'nameArea', 'phoneArea');
+                .to.include.all.keys('_id', 'codeCategory', 'nameCategory', 'description');
 
-            areaCreated = body.data._id; 
+            categoryCreated = body.data._id; 
         });
     });
 
-    describe('PUT (/api/areas) Update area', () => {
-        it('Should be reject because not invalid area id', async() => {
+    describe('PUT (/api/categories) Update category', () => {
+        it('Should be reject because invalid category id', async() => {
         
             const { statusCode, body } = await supertest(app)
-                .put(`/api/areas/12345`)
-                .send(areaUpdate)
+                .put('/api/categories/12345')
+                .send(categoryUpdate)
                 .set('Cookie', [`jwt=${accessToken}`]);
 
             expect(statusCode).to.equal(400);
@@ -128,19 +119,19 @@ describe('(/api/areas) - Areas', () => {
             const notFoundID = new mongoose.Types.ObjectId(); 
 
             const { statusCode, body } = await supertest(app)
-                .put(`/api/areas/${notFoundID}`)
-                .send(areaUpdate)
-                .set('Cookie', [`jwt=${accessToken}`]);;
+                .put(`/api/categories/${notFoundID}`)
+                .send(categoryUpdate)
+                .set('Cookie', [`jwt=${accessToken}`]);
 
             expect(statusCode).to.equal(404);
-            expect(body.message).to.equal('Area no encontrada');
+            expect(body.message).to.equal('Categoría no encontrada');
         });
 
         it('Should be reject because not send data', async() => {
-            const area = await createArea(areaPayload);
+            const category = await createCategory(categoryPayload);
 
             const { statusCode } = await supertest(app)
-                .put(`/api/areas/${area._id}`)
+                .put(`/api/categories/${category._id}`)
                 .set('Cookie', [`jwt=${accessToken}`]);
 
             expect(statusCode).to.equal(400);
@@ -149,20 +140,20 @@ describe('(/api/areas) - Areas', () => {
         it('Should be update area successfully', async() => {
 
             const { statusCode, body } = await supertest(app)
-                .put(`/api/areas/${areaCreated}`)
+                .put(`/api/categories/${categoryCreated}`)
                 .set('Cookie', [`jwt=${accessToken}`])
-                .send(areaUpdate);
+                .send(categoryUpdate);
             
             expect(statusCode).to.equal(200);
             expect(body).to.be.an('object');
-            expect(body.message).to.equal('Area actualizada exitosamente');
+            expect(body.message).to.equal('Categoría actualizada exitosamente');
         });
     });
 
-    describe('DELETE (/api/areas) Delete area', () => {
+    describe('DELETE (/api/categories) Delete category', () => {
         it('Should be reject because of invalid id', async() => {
             const { statusCode, body } = await supertest(app)
-                .delete(`/api/areas/12345`)
+                .delete(`/api/categories/12345`)
                 .set('Cookie', [`jwt=${accessToken}`]);;
 
             expect(statusCode).to.equal(400);
@@ -173,45 +164,45 @@ describe('(/api/areas) - Areas', () => {
             const notFoundID = new mongoose.Types.ObjectId().toString(); 
 
             const { statusCode, body } = await supertest(app)
-                .delete(`/api/areas/${notFoundID}`)
+                .delete(`/api/categories/${notFoundID}`)
                 .set('Cookie', [`jwt=${accessToken}`]);;
 
             expect(statusCode).to.equal(404);
-            expect(body.message).to.equal('Area no encontrada');
+            expect(body.message).to.equal('Categoría no encontrada');
         });
 
-        it('Should be delete area successfully', async() => {
+        it('Should be delete category successfully', async() => {
 
-            const area = await createArea(areaPayload);
+            const category = await createCategory(categoryPayload);
 
             const { statusCode, body } = await supertest(app)
-                .delete(`/api/areas/${area._id}`)
+                .delete(`/api/categories/${category._id}`)
                 .set('Cookie', [`jwt=${accessToken}`]);
                 
             expect(statusCode).to.equal(200);
             expect(body).to.be.an('object');
-            expect(body.message).to.equal('Area eliminada exitosamente');
+            expect(body.message).to.equal('Categoría eliminada exitosamente');
         });
     });
     
-    describe('GET (/api/areas) All areas', () => {
-        it('Should be all areas successfully', async() => {
+    describe('GET (/api/categories) All areas', () => {
+        it('Should be all categories successfully', async() => {
             const { statusCode, body } = await supertest(app)
-                .get('/api/areas')
+                .get('/api/categories')
                 .set('Cookie', [`jwt=${accessToken}`]);;
 
             expect(statusCode).to.equal(200); 
             expect(body).to.be.an('object');
             expect(body.data).to.be.an('array'); 
             
-            body.data.should.each.have.any.keys('_id', 'codeArea', 'nameArea', 'phoneArea'); 
+            body.data.should.each.have.any.keys('_id', 'codeCategory', 'nameCategory', 'description'); 
         });
     });
 
-    describe('GET (/api/areas/:areaId) Get by Id area', () => {
+    describe('GET (/api/categories/:areaId) Get by Id category', () => {
         it('Should be reject because of invalid id', async() => {
             const { statusCode, body } = await supertest(app)
-                .get(`/api/areas/12345`)
+                .get(`/api/categories/12345`)
                 .set('Cookie', [`jwt=${accessToken}`]);;
 
             expect(statusCode).to.equal(400);
@@ -222,23 +213,23 @@ describe('(/api/areas) - Areas', () => {
             const notFoundID = new mongoose.Types.ObjectId().toString(); 
 
             const { statusCode, body } = await supertest(app)
-                .get(`/api/areas/${notFoundID}`)
+                .get(`/api/categories/${notFoundID}`)
                 .set('Cookie', [`jwt=${accessToken}`]);;
 
             expect(statusCode).to.equal(404);
-            expect(body.message).to.equal('Area no encontrada');
+            expect(body.message).to.equal('Categoría no encontrada');
         });
 
-        it('Should be get area successfully', async() => {
+        it('Should be get categories successfully', async() => {
             const { statusCode, body } = await supertest(app)
-                .get(`/api/areas/${areaCreated}`)
+                .get(`/api/categories/${categoryCreated}`)
                 .set('Cookie', [`jwt=${accessToken}`]);;
 
             expect(statusCode).to.equal(200); 
             expect(body).to.be.an('object');
             expect(body.data)
                 .to.be.an('object')
-                .to.include.all.keys('_id', 'codeArea', 'nameArea', 'phoneArea'); 
+                .to.include.all.keys('_id', 'codeCategory', 'nameCategory', 'description'); 
         });
     });
 });

@@ -53,9 +53,9 @@ const payload = {
             required_error: 'Cantidad minima es requerida'
         }).positive(),
 
-        expiredDate: string(),
+        expiredDate: string().trim(),
 
-        expiredSaleDate: string(),
+        expiredSaleDate: string().trim(),
 
         isConsumible: boolean()
     })
@@ -70,9 +70,9 @@ const updatePayload = {
 
         description: string().trim().optional(),
 
-        category: string().optional(),
+        category: string().trim(),
 
-        supplier: string().optional(),
+        supplier: string().trim(),
 
         price1: number().positive().optional(),
 
@@ -84,23 +84,23 @@ const updatePayload = {
 
         cost: number().positive().optional(),
 
-        brand: string().optional(),
+        brand: string().trim().optional(),
 
-        serie: string().optional(),
+        serie: string().trim().optional(),
 
-        color: string().optional(),
+        color: string().trim().optional(),
 
-        year: string().optional(),
+        year: string().trim().optional(),
 
-        weight: string().optional(),
+        weight: string().trim().optional(),
 
-        size: string().optional(),
+        size: string().trim().optional(),
 
         minCount: number().positive().optional(),
 
-        expiredDate: string().optional(),
+        expiredDate: string().trim().optional(),
 
-        expiredSaleDate: string().optional(),
+        expiredSaleDate: string().trim().optional(),
 
         isConsumible: boolean()
     })

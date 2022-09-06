@@ -42,7 +42,7 @@ const updatePayload = {
             .trim()
             .optional(),
 
-        employee: string().optional(),
+        employee: string(),
 
         phoneArea: string({ required_error: 'Telefono es requerido'}).trim(),
 

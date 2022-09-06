@@ -17,6 +17,7 @@ import {
 } from '../services/customer.service';
 
 import { createPerson } from '../services/person.service';
+import { validateObjectID } from '../utils/validateObjectId';
 
 export async function createCustomerHandler(req: Request<{}, {}, CreateCustomerInput["body"]>, res: Response){
     try {
@@ -109,6 +110,15 @@ export async function findCustomerHandler(req: Request<ReadCustomerInput['params
     try {
         const customerId = req.params.customerId;
 
+        const message = validateObjectID(customerId);
+
+        if(message !== '') {
+            return res.status(400).send({
+                ok: false,
+                message 
+            });
+        }
+
         const customer = await findCustomer(customerId);
 
         if(!customer){
@@ -138,6 +148,16 @@ export async function updateCustomerHandler(
 ){
     try {
         const customerId = req.params.customerId;
+
+        const message = validateObjectID(customerId);
+
+        if(message !== '') {
+            return res.status(400).send({
+                ok: false,
+                message 
+            });
+        }
+
         const customer = await findCustomer(customerId);
         
         if(!customer){
@@ -170,12 +190,22 @@ export async function deleteCustomerHandler(
 ){
     try {
         const customerId = req.params.customerId;
+
+        const message = validateObjectID(customerId);
+
+        if(message !== '') {
+            return res.status(400).send({
+                ok: false,
+                message 
+            });
+        }
+
         const customer = await findCustomer(customerId);
 
         if(!customer){
             return res.status(404).json({
                 ok: false,
-                message: 'Categoría no encontrada'
+                message: 'Cliente no encontrado'
             });
         }
 

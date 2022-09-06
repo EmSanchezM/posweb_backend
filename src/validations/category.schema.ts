@@ -3,7 +3,7 @@ import { object, string, number, TypeOf } from "zod";
 const payload = {
     body: object({
         index: number({
-            required_error: 'Indice de area padre es requerida'
+            required_error: 'Indice de categoria padre es requerida'
         })
         .positive(),
 
@@ -33,8 +33,7 @@ const updatePayload = {
 
         nameCategory: string()
             .min(2, { message: 'Debe tener 2 o más caracteres de largo'})
-            .trim()
-            .optional(),
+            .trim(),
 
         description: string().trim().optional()
     })

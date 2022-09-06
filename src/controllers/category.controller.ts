@@ -15,6 +15,7 @@ import {
     deleteCategory,
     updateCategory
 } from '../services/category.service';
+import { validateObjectID } from '../utils/validateObjectId';
 
 export async function createCategoryHandler(req: Request<{}, {}, CreateCategoryInput["body"]>, res: Response){
     try {
@@ -29,7 +30,7 @@ export async function createCategoryHandler(req: Request<{}, {}, CreateCategoryI
 
         return res.status(201).json({
             ok: true,
-            message: 'Category creada exitosamente',
+            message: 'Categoría creada exitosamente',
             data: Category
         });
 
@@ -62,12 +63,21 @@ export async function findCategoryHandler(req: Request<ReadCategoryInput['params
     try {
         const categoryId = req.params.categoryId;
 
+        const message = validateObjectID(categoryId);
+
+        if(message !== '') {
+            return res.status(400).send({
+                ok: false,
+                message 
+            });
+        }
+
         const category = await findCategory(categoryId);
 
         if(!category){
             return res.status(404).json({
                 ok: false,
-                message: 'Categoria no encontrada'
+                message: 'Categoría no encontrada'
             });
         }
 
@@ -90,6 +100,16 @@ export async function updateCategoryHandler(
 ){
     try {
         const categoryId = req.params.categoryId;
+
+        const message = validateObjectID(categoryId);
+
+        if(message !== '') {
+            return res.status(400).send({
+                ok: false,
+                message 
+            });
+        }
+        
         const category = await findCategory(categoryId);
         
         if(!category){
@@ -121,6 +141,16 @@ export async function deleteCategoryHandler(
 ){
     try {
         const categoryId = req.params.categoryId;
+
+        const message = validateObjectID(categoryId);
+
+        if(message !== '') {
+            return res.status(400).send({
+                ok: false,
+                message 
+            });
+        }
+
         const category = await findCategory(categoryId);
 
         if(!category){

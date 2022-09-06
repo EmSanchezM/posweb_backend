@@ -4,7 +4,6 @@ import logger from '../utils/logger';
 import { 
     CreateUserInput,
     LoginUserInput,
-    UpdateUserInput,
     ProfileUserInput
 } from '../validations/user.schema';
 

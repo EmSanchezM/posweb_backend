@@ -91,7 +91,7 @@ const updatePayload = {
         .trim()
         .optional(),
         
-        birth: string().optional(),
+        birth: string().trim(),
 
         email: string({
             invalid_type_error: 'Email must be a string'
@@ -100,21 +100,21 @@ const updatePayload = {
         .email('Not a valid email')
         .optional(),
 
-        phone1: string().optional(),
+        phone1: string().trim().optional(),
 
-        phone2: string().optional(),
+        phone2: string().trim().optional(),
 
-        location: string().optional(),
+        location: string().trim().optional(),
 
-        country: string().optional(),
+        country: string().trim().optional(),
 
-        city: string().optional(),
+        city: string().trim().optional(),
 
-        facebook: string().optional(),
+        facebook: string().trim().optional(),
 
-        twitter: string().optional(),
+        twitter: string().trim().optional(),
 
-        linkedin: string().optional(),
+        linkedin: string().trim().optional(),
 
         creditLimit: number().positive().optional(),
         

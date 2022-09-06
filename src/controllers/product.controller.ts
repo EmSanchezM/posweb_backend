@@ -15,6 +15,7 @@ import {
     findProduct,
     findProducts
 } from '../services/product.service';
+import { validateObjectID } from '../utils/validateObjectId';
 
 export async function createProductHandler(req: Request<{}, {}, CreateProductInput["body"]>, res: Response){
     try {
@@ -45,6 +46,7 @@ export async function createProductHandler(req: Request<{}, {}, CreateProductInp
 export async function findProductsHandler(req: Request, res: Response){
     try {
         const products = await findProducts();
+        
         return res.status(200).json({
             ok: true,
             data: products
@@ -61,6 +63,15 @@ export async function findProductsHandler(req: Request, res: Response){
 export async function findProductHandler(req: Request<ReadProductInput['params']>, res: Response){
     try {
         const productId = req.params.productId;
+
+        const message = validateObjectID(productId);
+
+        if(message !== '') {
+            return res.status(400).send({
+                ok: false,
+                message 
+            });
+        }
 
         const product = await findProduct(productId);
 
@@ -90,6 +101,16 @@ export async function updateProductHandler(
 ){
     try {
         const productId = req.params.productId;
+
+        const message = validateObjectID(productId);
+
+        if(message !== '') {
+            return res.status(400).send({
+                ok: false,
+                message 
+            });
+        }
+
         const product = await findProduct(productId);
         
         if(!product){
@@ -121,6 +142,16 @@ export async function deleteProductHandler(
 ){
     try {
         const productId = req.params.productId;
+
+        const message = validateObjectID(productId);
+
+        if(message !== '') {
+            return res.status(400).send({
+                ok: false,
+                message 
+            });
+        }
+
         const product = await findProduct(productId);
 
         if(!product){
