@@ -2,7 +2,7 @@
   "name": "posweb_backend",
   "version": "1.0.0",
   "description": "PosWeb Backend - Dataplus",
-  "main": "app.ts",
+  "main": "app.js",
   "license": "MIT",
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/app.ts",
