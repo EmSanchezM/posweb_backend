@@ -137,7 +137,7 @@ describe('(/api/categories) - Categories', () => {
             expect(statusCode).to.equal(400);
         });
 
-        it('Should be update area successfully', async() => {
+        it('Should be update category successfully', async() => {
 
             const { statusCode, body } = await supertest(app)
                 .put(`/api/categories/${categoryCreated}`)

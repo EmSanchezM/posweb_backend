@@ -226,7 +226,7 @@ describe('(/api/customers) - Customers', () => {
             expect(statusCode).to.equal(400);
         });
 
-        it('Should be update area successfully', async() => {
+        it('Should be update customer successfully', async() => {
 
             const { statusCode, body } = await supertest(app)
                 .put(`/api/customers/${customerCreated}`)
