@@ -23,9 +23,7 @@ export async function findSuppliers(){
     }
 }
 
-export async function findSupplier(
-    supplierId: string 
-){
+export async function findSupplier(supplierId: string){
     try {
         const supplier = await Supplier.findById(supplierId);
         return supplier;

@@ -24,9 +24,7 @@ export async function findProducts(){
     }
 }
 
-export async function findProduct(
-    productId: string 
-){
+export async function findProduct(productId: string){
     try {
         const product = await Product.findById(productId);
 

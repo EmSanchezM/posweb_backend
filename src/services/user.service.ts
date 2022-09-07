@@ -20,9 +20,7 @@ export async function findUsers(){
     }
 }
 
-export async function findUser(
-    userId: string 
-){
+export async function findUser(userId: string){
     try {
         const user = await User.findById(userId).select('-password');
         

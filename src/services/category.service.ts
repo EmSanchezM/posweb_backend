@@ -14,17 +14,17 @@ export async function createCategory(input: DocumentDefinition<Omit<CategoryDocu
 export async function findCategories(){
     try {
         const categories = await Category.find();
+
         return categories;
     } catch (error: any) {
         throw new Error(error);
     }
 }
 
-export async function findCategory(
-    categoryId: string 
-){
+export async function findCategory(categoryId: string){
     try {
         const category = await Category.findById(categoryId);
+
         return category;
     } catch (error: any) {
         throw new Error(error);
@@ -34,6 +34,7 @@ export async function findCategory(
 export async function updateCategory(categoryId: string, categoryUpdate: UpdateQuery<CategoryDocument>){
     try {
         const category = Category.findByIdAndUpdate(categoryId, categoryUpdate);
+        
         return category;
     } catch (error: any) {
         throw new Error(error);

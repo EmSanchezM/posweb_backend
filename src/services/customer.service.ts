@@ -23,9 +23,7 @@ export async function findCustomers(){
     }
 }
 
-export async function findCustomer(
-    customerId: string 
-){
+export async function findCustomer(customerId: string){
     try {
         const customer = await Customer.findById(customerId);
         return customer;

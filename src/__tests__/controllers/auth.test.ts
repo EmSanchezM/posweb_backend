@@ -29,6 +29,7 @@ export const userPayload = {
     gender: "Masculino",
     username: "testname",
     password: "123456",
+    passwordConfirm: "123456",
     rol: "Admin",
     email:"mtest@gmail.com",
     birth: "1997-03-10",
@@ -133,11 +134,11 @@ describe('(/api/auth/) - Authentication Users', () => {
             expect(statusCode).to.equal(201);
 
             expect(body).to.be.an('object');
-            expect(body.message).to.equal('Cliente creado exitosamente');
+            expect(body.message).to.equal('Usuario creado exitosamente');
 
             expect(body.data)
                 .to.be.an('object')
-                .to.include.all.keys('_id', 'person', 'username', 'email');
+                .to.includes.all.keys('_id', 'username', 'email', 'rol');
 
             userCreated = body.data._id; 
         });

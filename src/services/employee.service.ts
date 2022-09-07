@@ -5,6 +5,7 @@ import Employee, { EmployeeDocument } from '../models/employee.model';
 export async function createEmployee(input: DocumentDefinition<Omit<EmployeeDocument, 'createdAt' | 'updatedAt'>>){
     try {
         const employee = await Employee.create(input);
+        
         return employee;
     } catch (error: any) {
         throw new Error(error);
@@ -23,11 +24,10 @@ export async function findEmployees(){
     }
 }
 
-export async function findEmployee(
-    EmployeeId: string 
-){
+export async function findEmployee(employeeId: string ){
     try {
-        const employee = await Employee.findById(EmployeeId);
+        const employee = await Employee.findById(employeeId);
+
         return employee;
     } catch (error: any) {
         throw new Error(error);
@@ -37,6 +37,7 @@ export async function findEmployee(
 export async function updateEmployee(employeeId: string, employeeUpdate: UpdateQuery<EmployeeDocument>){
     try {
         const employee = Employee.findByIdAndUpdate(employeeId, employeeUpdate);
+
         return employee;
     } catch (error: any) {
         throw new Error(error);

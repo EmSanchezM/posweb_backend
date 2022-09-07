@@ -12,9 +12,7 @@ export async function createPerson(input: DocumentDefinition<Omit<PersonDocument
     }
 }
 
-export async function findPerson(
-    personId: string 
-){
+export async function findPerson(personId: string){
     try {
         const person = await Person.findById(personId);
         return person;

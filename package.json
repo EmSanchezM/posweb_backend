@@ -6,6 +6,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/app.ts",
+    "start": "node ./dist/app.js",
+    "test": "jest",
     "build": "tsc"
   },
   "dependencies": {
@@ -19,7 +21,7 @@
     "lodash": "4.17.21",
     "mongoose": "6.5.4",
     "nanoid": "4.0.0",
-    "pino": "^8.5.0",
+    "pino": "8.5.0",
     "pino-pretty": "9.1.0",
     "zod": "3.19.0"
   },
