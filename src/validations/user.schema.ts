@@ -159,8 +159,8 @@ const loginPayload = {
         password: string({
             required_error: 'Password es requerido'
         })
-    }).strict()
-}
+    })
+};
 
 const params = {
     params: object({

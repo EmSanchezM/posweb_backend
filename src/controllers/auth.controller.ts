@@ -102,8 +102,8 @@ export async function registerHandler(req: Request<{}, {}, CreateUserInput["body
 
 export async function loginHandler(req: Request<{}, {}, LoginUserInput["body"]>, res: Response){
     try {
-        const { username, password } = req.body; 
-
+        const { username, password } = req.body;
+    
         let message = 'Credenciales no validas';
         
         const user = await findUserByUserName(username);
@@ -121,7 +121,7 @@ export async function loginHandler(req: Request<{}, {}, LoginUserInput["body"]>,
         if(!isValid) {
             return res.send(message); 
         }
-
+        
         const accessToken = signAccessToken(user);
         
         res.cookie('jwt', accessToken, {

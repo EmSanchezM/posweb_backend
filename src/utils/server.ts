@@ -6,11 +6,8 @@ import deserializeUser from "../middlewares/deserializeUser";
 function createServer()  {
     const app = express();
 
-    app.use(cors({
-        origin: [' http://127.0.0.1:5173'],
-        credentials: true 
-    }));
     app.use(express.json());
+    app.use(cors());
     app.use(deserializeUser); 
 
     app.use(router);

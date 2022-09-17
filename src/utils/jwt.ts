@@ -5,7 +5,6 @@ export function signJwt(
     object: Object,
     options?: jwt.SignOptions | undefined 
 ) {
-
     const secretKey = config.get<string>('JwtSecret');
 
     return jwt.sign(object, secretKey, options);
