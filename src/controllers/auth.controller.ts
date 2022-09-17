@@ -119,7 +119,7 @@ export async function loginHandler(req: Request<{}, {}, LoginUserInput["body"]>,
         const isValid = await user.comparePassword(password);
 
         if(!isValid) {
-            return res.send(message); 
+            throw new Error(message); 
         }
         
         const accessToken = signAccessToken(user);
@@ -137,7 +137,7 @@ export async function loginHandler(req: Request<{}, {}, LoginUserInput["body"]>,
     } catch (error : any) {
         logger.error(error);
         return res.status(409).json({
-            ok: true,
+            ok: false,
             message: error.message
         });
     }
