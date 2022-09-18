@@ -126,6 +126,8 @@ export async function loginHandler(req: Request<{}, {}, LoginUserInput["body"]>,
         
         res.cookie('jwt', accessToken, {
             httpOnly: true,
+            sameSite: 'none',
+            secure: true,
             maxAge: 24 * 60 * 60 * 1000 // 1 día
         });
 
