@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors"; 
 import router from "../routes";
 import deserializeUser from "../middlewares/deserializeUser";
-import * as cookieParser from "cookie-parser";
+import cookieParser from "cookie-parser";
 
 function createServer()  {
     const app = express();
