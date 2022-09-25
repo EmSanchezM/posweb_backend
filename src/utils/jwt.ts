@@ -10,6 +10,15 @@ export function signJwt(
     return jwt.sign(object, secretKey, options);
 }
 
+export function signJwtRefresh(
+    object: Object,
+    options?: jwt.SignOptions | undefined 
+) {
+    const secretKey = config.get<string>('JwtRefresh');
+
+    return jwt.sign(object, secretKey, options);
+}
+
 export function verifyJwt<T>(token: string) {
     try {
         const secretKey = config.get<string>('JwtSecret');

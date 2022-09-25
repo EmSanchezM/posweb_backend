@@ -7,7 +7,7 @@ import {
     ProfileUserInput
 } from '../validations/user.schema';
 
-import { signAccessToken } from '../services/auth.service';
+import { signAccessToken, signRefreshToken } from '../services/auth.service';
 
 import { 
     findUserByUserName,
@@ -18,6 +18,7 @@ import {
 
 import { createPerson, updatePerson } from '../services/person.service';
 import { createEmployee, findEmployee, updateEmployee } from '../services/employee.service';
+import { omit } from 'lodash';
 
 export async function registerHandler(req: Request<{}, {}, CreateUserInput["body"]>, res: Response) {
     try {
@@ -123,17 +124,23 @@ export async function loginHandler(req: Request<{}, {}, LoginUserInput["body"]>,
         }
         
         const accessToken = signAccessToken(user);
+
+        const refreshToken = signRefreshToken(user);
         
-        res.cookie('jwt', accessToken, {
+        res.cookie('jwt', refreshToken, {
             httpOnly: true,
             sameSite: 'none',
             secure: true,
             maxAge: 24 * 60 * 60 * 1000 // 1 día
         });
 
+        const data = omit(user.toJSON(), 'password');
+
         return res.status(200).json({
             ok: true,
-            message: 'Inicio de sesion exitoso'
+            message: 'Inicio de sesion exitoso',
+            user: data,
+            accessToken
         });
 
     } catch (error : any) {
@@ -247,4 +254,12 @@ export async function updateProfile(req: Request<{}, {}, ProfileUserInput['body'
             message: error.message 
         });
     }
+}
+
+export async function refreshToken(req: Request<{},{}, {}>, res: Response) {
+    const cookies = req.cookies;
+
+    if(!cookies.jwt) return res.status(401).json({ message: 'Unauthorized' })
+
+    const refreshToken = cookies.jwt
 }
