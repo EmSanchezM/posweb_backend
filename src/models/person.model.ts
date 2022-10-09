@@ -13,10 +13,6 @@ export interface PersonDocument extends mongoose.Document {
     country: string;
     city: string;
     location: string;
-    website: string;
-    facebook: string;
-    twitter: string;
-    linkedin: string; 
     isActive: boolean;
     createdAt: Date;
     updatedAt: Date;  
@@ -35,10 +31,6 @@ const personSchema = new mongoose.Schema({
     country: { type: String, trim: true },
     city: { type: String, trim: true },
     location: {type: String, trim: true },
-    website: { type: String, trim: true },
-    facebook: { type: String, trim: true },
-    twitter: { type: String, trim: true },
-    linkedin: { type: String, trim: true },
     isActive: { type: Boolean, default: true }
 },{
     timestamps: true,

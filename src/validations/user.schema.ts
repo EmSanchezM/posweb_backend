@@ -62,14 +62,6 @@ const payload = {
 
         city: string().trim(),
 
-        website: string().trim(),
-
-        facebook: string().trim(),
-
-        twitter: string().trim(),
-
-        linkedin: string().trim(),
-
         workLocation: string().trim(),
 
     }).refine((data) => data.password === data.passwordConfirm, {

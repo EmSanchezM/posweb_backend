@@ -42,14 +42,6 @@ const payload = {
 
         city: string().trim(),
 
-        website: string().trim(),
-
-        facebook: string().trim(),
-
-        twitter: string().trim(),
-
-        linkedin: string().trim(),
-
         companyName: string({
             required_error: 'Nombre de la empresa es requerido'
         })
@@ -133,12 +125,6 @@ const updatePayload = {
         country: string().trim().optional(),
 
         city: string().trim().optional(),
-
-        facebook: string().trim().optional(),
-
-        twitter: string().trim().optional(),
-
-        linkedin: string().trim().optional(),
 
         companyName: string({
             required_error: 'Nombre de la empresa es requerido'

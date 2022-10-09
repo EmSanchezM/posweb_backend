@@ -34,11 +34,6 @@ export async function createCustomerHandler(req: Request<{}, {}, CreateCustomerI
             location,
             country,
             city,
-            website,
-            facebook,
-            twitter,
-            linkedin,
-            creditLimit,
             payIVA
         } = req.body; 
 
@@ -55,10 +50,6 @@ export async function createCustomerHandler(req: Request<{}, {}, CreateCustomerI
             location,
             country,
             city,
-            website,
-            facebook,
-            twitter,
-            linkedin,
             isActive: true
         }
 
@@ -67,7 +58,6 @@ export async function createCustomerHandler(req: Request<{}, {}, CreateCustomerI
         const customerSave = {
             person: person._id,
             codeCustomer: `${req.body.rtn}_${req.body.lastName}`,
-            creditLimit,
             payIVA,
             isActive: true 
         }
@@ -171,7 +161,8 @@ export async function updateCustomerHandler(
 
         return res.status(200).json({
             ok: true,
-            message: 'Cliente actualizado exitosamente'
+            message: 'Cliente actualizado exitosamente',
+            data: customer
         });
 
     } catch (error: any) {

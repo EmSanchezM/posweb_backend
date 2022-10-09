@@ -34,10 +34,6 @@ export async function createSupplierHandler(req: Request<{}, {}, CreateSupplierI
             location,
             country,
             city,
-            website,
-            facebook,
-            twitter,
-            linkedin,
             companyName,
             companyLocation,
             companyLogo,
@@ -61,10 +57,6 @@ export async function createSupplierHandler(req: Request<{}, {}, CreateSupplierI
             location,
             country,
             city,
-            website,
-            facebook,
-            twitter,
-            linkedin,
             isActive: true
         }
 
