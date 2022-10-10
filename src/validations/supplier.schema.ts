@@ -51,10 +51,10 @@ const payload = {
         companyLocation: string({
             required_error: 'Ubicación de la empresa es requerido'
         })
-        .min(2, { message: 'Debe tener 2 o más caracteres de largo'})
+        .min(2, { message: 'Debe tener 2 o más caracteres de largo' })
         .trim(),
 
-        companyPhone1: string({ required_error: 'Telefono es requerido'}).trim(),
+        companyPhone1: string({ required_error: 'Telefono es requerido' }).trim(),
 
         companyPhone2: string().trim(),
 
@@ -65,9 +65,7 @@ const payload = {
         companyLogo: string().trim(),
 
         workPosition: string().trim(),
-
-        workLocation: string().trim(),
-
+        
         title: string().trim()
     })
 };
