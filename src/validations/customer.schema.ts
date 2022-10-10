@@ -1,4 +1,4 @@
-import { object, string, boolean, TypeOf } from "zod";
+import { object, string, boolean, date, TypeOf } from "zod";
 
 const payload = {
     body: object({
@@ -81,7 +81,7 @@ const updatePayload = {
         .trim()
         .optional(),
         
-        birth: string().trim().optional(),
+        birth: string().optional(),
 
         email: string({
             invalid_type_error: 'Email must be a string'

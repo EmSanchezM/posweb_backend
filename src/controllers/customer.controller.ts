@@ -16,7 +16,7 @@ import {
     deleteCustomer
 } from '../services/customer.service';
 
-import { createPerson } from '../services/person.service';
+import { createPerson, deletePerson, updatePerson } from '../services/person.service';
 import { validateObjectID } from '../utils/validateObjectId';
 
 export async function createCustomerHandler(req: Request<{}, {}, CreateCustomerInput["body"]>, res: Response){
@@ -139,6 +139,21 @@ export async function updateCustomerHandler(
     try {
         const customerId = req.params.customerId;
 
+        const { 
+            identidad, 
+            name, 
+            lastName, 
+            rtn, 
+            gender, 
+            birth, 
+            email, 
+            phone1, 
+            phone2, 
+            location,
+            country,
+            city
+        } = req.body;
+
         const message = validateObjectID(customerId);
 
         if(message !== '') {
@@ -148,16 +163,33 @@ export async function updateCustomerHandler(
             });
         }
 
-        const customer = await findCustomer(customerId);
+        const customerFind = await findCustomer(customerId);
         
-        if(!customer){
+        if(!customerFind){
             return res.status(404).json({
                 ok: false,
                 message: 'Cliente no encontrado'
             });
         }
 
-        await updateCustomer(customerId, req.body);
+        const personUpdate = {
+            identidad, 
+            name, 
+            lastName, 
+            rtn, 
+            gender, 
+            birth, 
+            email, 
+            phone1, 
+            phone2, 
+            location,
+            country,
+            city,
+        }
+
+        await updatePerson(customerFind?.person, personUpdate);
+        
+        const customer = await updateCustomer(customerId, req.body);
 
         return res.status(200).json({
             ok: true,
@@ -200,7 +232,9 @@ export async function deleteCustomerHandler(
             });
         }
 
-       await deleteCustomer(customer._id);
+        await deletePerson(customer.person); 
+
+        await deleteCustomer(customer._id);
 
         return res.status(200).json({
             ok: true, 
