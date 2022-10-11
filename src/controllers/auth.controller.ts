@@ -38,10 +38,6 @@ export async function registerHandler(req: Request<{}, {}, CreateUserInput["body
             country, 
             city, 
             location, 
-            website, 
-            facebook, 
-            twitter, 
-            linkedin, 
             workLocation
         } = req.body;
 
@@ -58,10 +54,6 @@ export async function registerHandler(req: Request<{}, {}, CreateUserInput["body
             country, 
             city, 
             location, 
-            website, 
-            facebook, 
-            twitter, 
-            linkedin,
             isActive: true
         };
 
@@ -198,10 +190,6 @@ export async function updateProfile(req: Request<{}, {}, ProfileUserInput['body'
             country, 
             city, 
             location, 
-            website, 
-            facebook, 
-            twitter, 
-            linkedin, 
             workLocation
         } = req.body;
 
@@ -233,11 +221,7 @@ export async function updateProfile(req: Request<{}, {}, ProfileUserInput['body'
             phone2, 
             country, 
             city, 
-            location, 
-            website, 
-            facebook, 
-            twitter, 
-            linkedin
+            location
         });
 
         await updateUser(userId, { username });
