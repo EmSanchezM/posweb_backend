@@ -156,11 +156,18 @@ export async function authenticatedUserHandler(req: Request<{}, {}>, res: Respon
                 message: 'Unathorized'
             });
         }
-
-        return res.send(user);
-
-    } catch (error) {
         
+        return res.status(200).json({
+            ok: true,
+            data: user 
+        })
+
+    } catch (error: any) {
+        logger.error(error);
+        return res.status(401).json({
+            ok: false, 
+            message: error.message
+        })
     }
 }
 
@@ -168,6 +175,7 @@ export async function logoutHandler(req: Request<{}, {}, {}>, res: Response) {
     res.cookie('jwt', '', { maxAge: 0 });
 
     return res.send({
+        ok: true,
         message: 'Cerrada sesión'
     });
 }
