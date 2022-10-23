@@ -16,7 +16,12 @@ export async function findProducts(){
     try {
         const products = await Product.find()
             .populate('category')
-            .populate('supplier');
+            .populate({
+                path: 'supplier',
+                populate: {
+                    path: 'person'
+                }
+            });
 
         return products;
     } catch (error: any) {
