@@ -16,7 +16,7 @@ import {
     findSuppliers
 } from '../services/supplier.service';
 
-import { createPerson } from '../services/person.service';
+import { createPerson, updatePerson } from '../services/person.service';
 import { validateObjectID } from '../utils/validateObjectId';
 
 export async function createSupplierHandler(req: Request<{}, {}, CreateSupplierInput["body"]>, res: Response){
@@ -34,10 +34,6 @@ export async function createSupplierHandler(req: Request<{}, {}, CreateSupplierI
             location,
             country,
             city,
-            website,
-            facebook,
-            twitter,
-            linkedin,
             companyName,
             companyLocation,
             companyLogo,
@@ -61,10 +57,6 @@ export async function createSupplierHandler(req: Request<{}, {}, CreateSupplierI
             location,
             country,
             city,
-            website,
-            facebook,
-            twitter,
-            linkedin,
             isActive: true
         }
 
@@ -160,6 +152,21 @@ export async function updateSupplierHandler(
     try {
         const supplierId = req.params.supplierId;
 
+        const {
+            identidad, 
+            name, 
+            lastName, 
+            rtn, 
+            gender, 
+            birth, 
+            email, 
+            phone1, 
+            phone2, 
+            location,
+            country,
+            city
+        } = req.body
+
         const message = validateObjectID(supplierId);
 
         if(message !== '') {
@@ -177,12 +184,29 @@ export async function updateSupplierHandler(
                 message: 'Proveedor no encontrado'
             });
         }
+        const personUpdate = {
+            identidad, 
+            name, 
+            lastName, 
+            rtn, 
+            gender, 
+            birth, 
+            email, 
+            phone1, 
+            phone2, 
+            location,
+            country,
+            city
+        };
+
+        await updatePerson(supplier.person, personUpdate);
 
         await updateSupplier(supplierId, req.body);
 
         return res.status(200).json({
             ok: true,
-            message: 'Proveedor actualizado exitosamente'
+            message: 'Proveedor actualizado exitosamente',
+            data: supplier
         });
 
     } catch (error: any) {

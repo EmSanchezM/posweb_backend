@@ -4,13 +4,11 @@ const payload = {
     body: object({
         index: number({
             required_error: 'Indice de categoria padre es requerida'
-        })
-        .positive(),
+        }),
 
         parentCode: number({
             required_error: 'Area padre es requerido'
-        })
-        .positive(),
+        }),
 
         nameCategory: string({
             required_error: 'Nombre de categoría es requirido'
@@ -24,11 +22,9 @@ const payload = {
 const updatePayload = {
     body: object({
         index: number()
-        .positive()
         .optional(),
 
         parentCode: number()
-        .positive()
         .optional(),
 
         nameCategory: string()

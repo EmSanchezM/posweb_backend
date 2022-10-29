@@ -1,6 +1,7 @@
 import { isNull, omit } from 'lodash';
 import { DocumentDefinition, FilterQuery, QueryOptions, UpdateQuery } from 'mongoose'; 
 import Customer, { CustomerDocument } from '../models/customer.model';
+import Person from '../models/person.model';
 
 export async function createCustomer(input: DocumentDefinition<Omit<CustomerDocument, 'createdAt' | 'updatedAt'>>){
     try {
@@ -26,6 +27,7 @@ export async function findCustomers(){
 export async function findCustomer(customerId: string){
     try {
         const customer = await Customer.findById(customerId);
+
         return customer;
     } catch (error: any) {
         throw new Error(error);
@@ -34,7 +36,8 @@ export async function findCustomer(customerId: string){
 
 export async function updateCustomer(customerId: string, customerUpdate: UpdateQuery<CustomerDocument>){
     try {
-        const customer = Customer.findByIdAndUpdate(customerId, customerUpdate);
+        const customer = await Customer.findByIdAndUpdate(customerId, customerUpdate).populate('person');
+
         return customer;
     } catch (error: any) {
         throw new Error(error);

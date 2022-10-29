@@ -1,4 +1,4 @@
-import { object, string, number, boolean, TypeOf } from "zod";
+import { object, string, boolean, date, TypeOf } from "zod";
 
 const payload = {
     body: object({
@@ -42,16 +42,6 @@ const payload = {
 
         city: string().trim(),
 
-        website: string().trim(),
-
-        facebook: string().trim(),
-
-        twitter: string().trim(),
-
-        linkedin: string().trim(),
-
-        creditLimit: number({ required_error: 'Limite de credito es requerido'}).positive(),
-        
         payIVA: boolean({ required_error: 'Paga IVA es requerido'})
     })
 };
@@ -91,7 +81,7 @@ const updatePayload = {
         .trim()
         .optional(),
         
-        birth: string().trim(),
+        birth: string().optional(),
 
         email: string({
             invalid_type_error: 'Email must be a string'
@@ -110,14 +100,6 @@ const updatePayload = {
 
         city: string().trim().optional(),
 
-        facebook: string().trim().optional(),
-
-        twitter: string().trim().optional(),
-
-        linkedin: string().trim().optional(),
-
-        creditLimit: number().positive().optional(),
-        
         payIVA: boolean().optional()
 
     })

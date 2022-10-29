@@ -38,10 +38,6 @@ export async function registerHandler(req: Request<{}, {}, CreateUserInput["body
             country, 
             city, 
             location, 
-            website, 
-            facebook, 
-            twitter, 
-            linkedin, 
             workLocation
         } = req.body;
 
@@ -58,10 +54,6 @@ export async function registerHandler(req: Request<{}, {}, CreateUserInput["body
             country, 
             city, 
             location, 
-            website, 
-            facebook, 
-            twitter, 
-            linkedin,
             isActive: true
         };
 
@@ -164,11 +156,18 @@ export async function authenticatedUserHandler(req: Request<{}, {}>, res: Respon
                 message: 'Unathorized'
             });
         }
-
-        return res.send(user);
-
-    } catch (error) {
         
+        return res.status(200).json({
+            ok: true,
+            data: user 
+        })
+
+    } catch (error: any) {
+        logger.error(error);
+        return res.status(401).json({
+            ok: false, 
+            message: error.message
+        })
     }
 }
 
@@ -176,6 +175,7 @@ export async function logoutHandler(req: Request<{}, {}, {}>, res: Response) {
     res.cookie('jwt', '', { maxAge: 0 });
 
     return res.send({
+        ok: true,
         message: 'Cerrada sesión'
     });
 }
@@ -198,10 +198,6 @@ export async function updateProfile(req: Request<{}, {}, ProfileUserInput['body'
             country, 
             city, 
             location, 
-            website, 
-            facebook, 
-            twitter, 
-            linkedin, 
             workLocation
         } = req.body;
 
@@ -233,11 +229,7 @@ export async function updateProfile(req: Request<{}, {}, ProfileUserInput['body'
             phone2, 
             country, 
             city, 
-            location, 
-            website, 
-            facebook, 
-            twitter, 
-            linkedin
+            location
         });
 
         await updateUser(userId, { username });

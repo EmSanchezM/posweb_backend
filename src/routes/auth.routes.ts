@@ -5,10 +5,10 @@ import requireUser from '../middlewares/requireUser';
 import { 
     loginHandler,
     registerHandler,
-    authenticatedUserHandler,
     logoutHandler,
     updateProfile,
-    refreshToken
+    refreshToken,
+    authenticatedUserHandler
 } from '../controllers/auth.controller';
 
 import { 

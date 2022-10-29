@@ -22,8 +22,14 @@ export async function findUsers(){
 
 export async function findUser(userId: string){
     try {
-        const user = await User.findById(userId).select('-password');
-        
+        const user = await User.findById(userId)
+            .populate({
+                path: 'employee', 
+                populate: {
+                    path: 'person'
+                }
+            });
+       
         return user;
     } catch (error: any) {
         throw new Error(error);
