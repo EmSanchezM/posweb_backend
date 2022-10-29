@@ -1,12 +1,12 @@
-import { object, string, number, TypeOf } from 'zod';
+import { object, string, number, TypeOf, array } from 'zod';
 
 const payload = {
   body: object({
-    orderNum: number({
+    orderNumber: number({
       required_error: 'Numero de Order es requerida',
     }).positive(),
 
-    canal: string({
+    channel: string({
       required_error: 'canal de la order es requerido',
     })
       .min(2, { message: 'Debe tener 2 o más caracteres de largo' })
@@ -18,7 +18,39 @@ const payload = {
       .min(2, { message: 'Debe tener 2 o más caracteres de largo' })
       .trim(),
 
-    tableNum: number().positive(),
+    orderItems: array(
+      object({
+        product: string({
+          required_error: 'Product ID es requerido',
+        }),
+
+        quantity: number({
+          required_error: 'Cantidad del Producto es requerida',
+        }).positive(),
+
+        price: number({
+          required_error: 'Precio del Producto es requerida',
+        }).positive(),
+
+        subTotal: number({
+          required_error: 'subTotal del OrderDetail es requerida',
+        }).positive(),
+
+        tax: number({
+          required_error: 'Impuestos del Producto es requerida',
+        }).positive(),
+
+        discount: number().positive(),
+
+        total: number({
+          required_error: 'total de OrderDetail es requerida',
+        }).positive(),
+
+        notes: string().trim(),
+      })
+    ),
+
+    tableNumber: number().positive(),
 
     employee: string().trim(),
     shipping: string().trim(),
@@ -31,11 +63,11 @@ const payload = {
 
 const updatePayload = {
   body: object({
-    orderNum: number({
+    orderNumber: number({
       required_error: 'Numero de Order es requerida',
     }).positive(),
 
-    canal: string({
+    channel: string({
       required_error: 'canal de la order es requerido',
     })
       .min(2, { message: 'Debe tener 2 o más caracteres de largo' })
@@ -47,7 +79,27 @@ const updatePayload = {
       .min(2, { message: 'Debe tener 2 o más caracteres de largo' })
       .trim(),
 
-    tableNum: number().positive(),
+    orderItems: array(
+      object({
+        product: string(),
+
+        quantity: number().positive(),
+
+        price: number().positive(),
+
+        subTotal: number().positive(),
+
+        tax: number().positive(),
+
+        discount: number().positive(),
+
+        total: number().positive(),
+
+        notes: string().trim(),
+      })
+    ),
+
+    tableNumber: number().positive(),
 
     employee: string().trim(),
     shipping: string().trim(),

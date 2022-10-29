@@ -16,18 +16,44 @@ import {
   updateOrder,
 } from '../services/order.service';
 import { validateObjectID } from '../utils/validateObjectId';
+import { createOrderDetail } from '../services/orderDetail.service';
 
 export async function createOrderHandler(
   req: Request<{}, {}, CreateOrderInput['body']>,
   res: Response
 ) {
   try {
+    const {
+      orderNumber,
+      channel,
+      orderType,
+      tableNumber,
+      employee,
+      shipping,
+      customer,
+      status,
+      description,
+      orderItems
+    } = req.body;
+
     const orderSave = {
-      ...req.body,
-      isActive: true,
-    };
+      orderNumber,
+      channel,
+      orderType,
+      tableNumber,
+      employee,
+      shipping,
+      customer,
+      status,
+      description,
+      isActive: true
+    }
 
     const order = await createOrder(orderSave);
+
+    await Promise.all(
+      orderItems.map(async(orderItem) => await createOrderDetail({ ...orderItem, order: order._id, isActive: true }))
+    );
 
     return res.status(201).json({
       ok: true,

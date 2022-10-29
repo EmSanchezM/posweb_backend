@@ -3,16 +3,16 @@ import { OrderDocument } from './orders.model';
 import { ProductDocument } from './product.model';
 
 export interface OrderDetailDocument extends mongoose.Document {
-  order: OrderDocument['_id']; // id de la orden a la que pertenece
+  order: OrderDocument['_id']; 
   product: ProductDocument['_id'];
-  quantity: Number; //cantidad
-  price: Number; //precio
-  subTotal: Number; // cantidad X precio
-  tax: Number; // impuestos
-  discount: Number; // descuento
+  quantity: Number; 
+  price: Number; 
+  subTotal: Number; 
+  tax: Number; 
+  discount: Number; 
   total: Number; // subTotal + tax - discount
 
-  notes: string; //detalles de este producto pedido
+  notes: string; 
   isActive: boolean;
   createdAt: Date;
   updatedAt: Date;

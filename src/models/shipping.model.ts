@@ -3,13 +3,13 @@ import { CustomerDocument } from './customer.model';
 import { AddressDocument } from './address.model';
 
 export interface ShippingDocument extends mongoose.Document {
-  customer: CustomerDocument['_id']; //aqui etan los datos de la direccion de entrega
-  cost: Number; //costo del shipping
-  status: String; //estatus de la entrega
-  deliverName: String; // nombre del repartidor
-  deliverTimeOut: Date; //fecha y hora de salida
-  description: string; //detalles del shiping
-  address: AddressDocument['_id']; //direccion de envio
+  customer: CustomerDocument['_id'];
+  cost: Number; 
+  status: String; 
+  deliverName: String;
+  deliverTimeOut: Date;
+  description: string; 
+  address: AddressDocument['_id'];
   isActive: boolean;
   createdAt: Date;
   updatedAt: Date;

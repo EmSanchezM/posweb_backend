@@ -21,24 +21,24 @@ import {
 const router = Router();
 
 // Orders routes
-router.get('/api/order', findOrdersHandler);
+router.get('/api/orders', findOrdersHandler);
 router.get(
-  '/api/order/:orderId',
+  '/api/orders/:orderId',
   [requireUser, validateResource(getOrderSchema)],
   findOrderHandler
 );
 router.post(
-  '/api/order',
+  '/api/orders',
   [requireUser, validateResource(createOrderSchema)],
   createOrderHandler
 );
 router.put(
-  '/api/order/:orderId',
+  '/api/orders/:orderId',
   [requireUser, validateResource(updateOrderSchema)],
   updateOrderHandler
 );
 router.delete(
-  '/api/order/:orderId',
+  '/api/orders/:orderId',
   [requireUser, validateResource(deleteOrderSchema)],
   deleteOrderHandler
 );
