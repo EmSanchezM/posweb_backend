@@ -2,7 +2,6 @@ import { Router } from 'express';
 import validateResource from '../middlewares/validateResource';
 import requireUser from '../middlewares/requireUser';
 
-//Areas
 import {
   createOrderHandler,
   findOrderHandler,
