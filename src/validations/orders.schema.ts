@@ -40,7 +40,7 @@ const payload = {
           required_error: 'Impuestos del Producto es requerida',
         }).positive(),
 
-        discount: number().positive(),
+        discount: number(),
 
         total: number({
           required_error: 'total de OrderDetail es requerida',

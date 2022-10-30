@@ -10,7 +10,7 @@ export interface OrderDetailDocument extends mongoose.Document {
   subTotal: Number; 
   tax: Number; 
   discount: Number; 
-  total: Number; // subTotal + tax - discount
+  total: Number;
 
   notes: string; 
   isActive: boolean;
