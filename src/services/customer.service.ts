@@ -1,7 +1,5 @@
-import { isNull, omit } from 'lodash';
 import { DocumentDefinition, FilterQuery, QueryOptions, UpdateQuery } from 'mongoose'; 
 import Customer, { CustomerDocument } from '../models/customer.model';
-import Person from '../models/person.model';
 
 export async function createCustomer(input: DocumentDefinition<Omit<CustomerDocument, 'createdAt' | 'updatedAt'>>){
     try {
