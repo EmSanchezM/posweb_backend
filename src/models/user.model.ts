@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt';
 import config from 'config';
 import { EmployeeDocument } from './employee.model';
 
-enum Roles { Admin, User };
+enum Roles { Admin, User, Mesero, Cajero };
 
 export interface UserDocument extends mongoose.Document {
     username: string;
