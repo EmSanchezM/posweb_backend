@@ -53,8 +53,31 @@ const payload = {
     tableNumber: number().positive(),
 
     employee: string().trim(),
-    shipping: string().trim(),
-    customer: string().trim(),
+    shipping: object({
+      cost: number().positive(),
+      status: string().trim(), 
+      deliverName: string().trim(),
+      deliverTimeOut: string(),
+      descriptionShipping: string().trim(),
+      country: string(),
+      department: string(),
+      city: string(),
+      typeAddress: string(),
+      address1: string(),
+      address2: string(),
+      phone: string(),
+      details: string(),
+    }),
+
+    customer: object({
+      identidad: string().trim(),
+      name: string().trim(),
+      lastName: string().trim(),
+      email: string().trim(),
+      country: string().trim(),
+      city: string().trim(),
+      location: string().trim()
+    }),
 
     status: string().trim(),
     description: string().trim(),

@@ -7,7 +7,7 @@ export interface ShippingDocument extends mongoose.Document {
   cost: Number; 
   status: String; 
   deliverName: String;
-  deliverTimeOut: Date;
+  deliverTimeOut: Date | string;
   description: string; 
   address: AddressDocument['_id'];
   isActive: boolean;

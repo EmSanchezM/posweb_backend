@@ -17,6 +17,10 @@ import {
 } from '../services/order.service';
 import { validateObjectID } from '../utils/validateObjectId';
 import { createOrderDetail } from '../services/orderDetail.service';
+import { createAddress } from '../services/address.service';
+import { createShipping } from '../services/shipping.service';
+import { createPerson } from '../services/person.service';
+import { createCustomer } from '../services/customer.service';
 
 export async function createOrderHandler(
   req: Request<{}, {}, CreateOrderInput['body']>,
@@ -31,7 +35,6 @@ export async function createOrderHandler(
       employee,
       shipping,
       customer,
-      status,
       description,
       orderItems
     } = req.body;
@@ -44,12 +47,79 @@ export async function createOrderHandler(
       employee,
       shipping,
       customer,
-      status,
+      status: 'Abierta',
       description,
       isActive: true
     }
+    const {
+      identidad,
+      name,
+      lastName,
+      email,
+      country,
+      city,
+      location,
+    } = customer;
+
+    const person = await createPerson({
+      identidad,
+      name,
+      lastName,
+      email,
+      country,
+      city,
+      location,
+      isActive: true
+    });
+
+    const customerSave = {
+      person: person._id,
+      codeCustomer: `${identidad}_${lastName}`,
+      payIVA: true,
+      isActive: true 
+    }
+
+    const customerData = await createCustomer(customerSave);
 
     const order = await createOrder(orderSave);
+
+    if(orderType === 'paraLlevar') {
+      const {
+        cost, 
+        status, 
+        deliverName,
+        deliverTimeOut,
+        descriptionShipping,
+        typeAddress,
+        city,
+        address1,
+        address2,
+        phone,
+        details
+      } = shipping;
+
+      const address = await createAddress({
+        customer: customerData._id,
+        name: typeAddress,
+        city,
+        address1,
+        address2,
+        phone,
+        details
+      });
+      
+      await createShipping({
+        address: address._id,
+        customer: customerData._id,
+        cost,
+        status,
+        deliverName,
+        deliverTimeOut,
+        description: descriptionShipping,
+        isActive: true
+      }); 
+
+    }
 
     await Promise.all(
       orderItems.map(async(orderItem) => await createOrderDetail({ ...orderItem, order: order._id, isActive: true }))
