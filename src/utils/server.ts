@@ -9,17 +9,13 @@ function createServer() {
 
   app.use(express.json());
   app.use(cookieParser());
-  app.use(
-    cors({
-      origin: [
-        'http://127.0.0.1:5173',
-        'https://dataplus-posweb.netlify.app',
-        'http://localhost:5173',
-        'https://poswebbackend-production.up.railway.app',
-      ],
-      credentials: true,
-    })
-  );
+
+  const whiteList = [
+    'http://127.0.0.1:5173',
+    'https://dataplus-posweb.netlify.app',
+    'http://localhost:5173',
+  ];
+  app.use(cors({ origin: whiteList }));
   app.use(deserializeUser);
 
   app.use(router);
