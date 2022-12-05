@@ -14,6 +14,7 @@ function createServer() {
     'http://127.0.0.1:5173',
     'https://dataplus-posweb.netlify.app',
     'http://localhost:5173',
+    'dataplushn.com',
   ];
   app.use(cors({ origin: whiteList }));
   app.use(deserializeUser);
