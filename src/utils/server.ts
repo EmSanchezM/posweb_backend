@@ -16,9 +16,12 @@ function createServer() {
     'http://localhost:5173',
     'https://dataplushn.com',
   ];
-  app.use(cors({ origin: whiteList }));
+  app.use(cors({ origin: whiteList, credentials: true }));
   app.use(deserializeUser);
 
+  app.get('/', (req, res) => {
+    res.send('hello world');
+  });
   app.use(router);
 
   return app;
