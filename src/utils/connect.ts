@@ -3,6 +3,8 @@ import config from "config";
 import logger from "./logger";
 
 async function connect() {
+  mongoose.set('strictQuery', true);
+  
   const dbUri = config.get<string>("dbUri");
   
   try {
