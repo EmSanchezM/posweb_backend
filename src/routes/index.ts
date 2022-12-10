@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { Router, Request, Response } from 'express';
 
 import area from './area.routes';
 import category from './category.routes';
@@ -19,5 +19,7 @@ router.use(customer);
 router.use(supplier);
 router.use(order);
 router.use(users);
-
+router.use(
+    router.get('/', (req: Request, res: Response) => res.send({ message: 'I am alive' }))
+)
 export default router;

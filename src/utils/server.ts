@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import config from 'config';
 import router from '../routes';
 import deserializeUser from '../middlewares/deserializeUser';
 import cookieParser from 'cookie-parser';
@@ -12,18 +13,11 @@ function createServer() {
   app.use(cookieParser());
 
   const whiteList = [
-    'http://127.0.0.1:5173',
-    'https://dataplus-posweb.netlify.app',
-    'http://localhost:5173',
-    'https://dataplushn.com',
+    config.get<string>('domain')
   ];
-  
+
   app.use(cors({ origin: whiteList, credentials: true }));
   app.use(deserializeUser);
-
-  app.get('/', (req, res) => {
-    res.send('I am alive');
-  });
 
   app.use(accessControl());
 

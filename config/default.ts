@@ -7,5 +7,6 @@ export default {
     dbUri: process.env.DATABASE_URI_DEV,
     saltWorkFactor: 10,
     JwtSecret: process.env.JWT_SECRET,
-    JwtRefresh: process.env.JWT_REFRESH 
+    JwtRefresh: process.env.JWT_REFRESH,
+    domain: process.env.DOMAIN, 
 }
