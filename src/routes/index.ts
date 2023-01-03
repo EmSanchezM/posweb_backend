@@ -8,6 +8,7 @@ import supplier from './supplier.routes';
 import auth from './auth.routes';
 import order from './order.routes';
 import users from './user.routes';
+import invoices from './invoice.routes';
 
 const router = Router();
 
@@ -19,7 +20,10 @@ router.use(customer);
 router.use(supplier);
 router.use(order);
 router.use(users);
+router.use(invoices);
 router.use(
-    router.get('/', (req: Request, res: Response) => res.send({ message: 'I am alive' }))
-)
+  router.get('/', (req: Request, res: Response) =>
+    res.send({ message: 'I am alive' })
+  )
+);
 export default router;

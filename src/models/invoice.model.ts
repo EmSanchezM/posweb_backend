@@ -3,6 +3,7 @@ import { OrderDocument } from './orders.model';
 import { EmployeeDocument } from './employee.model';
 
 export interface InvoiceDocument extends mongoose.Document {
+  number: String; // efectivo, tarjeta, transferencia, etc
   order: OrderDocument['_id']; // id de la orden a la que pertenece
   employee: EmployeeDocument['_id']; // empleado que la creado la factura , no la orden
   dateTime: Date; //fecha y hora de creacion de la factura
@@ -18,6 +19,7 @@ export interface InvoiceDocument extends mongoose.Document {
 
   paymentMethod: String; // efectivo, tarjeta, transferencia, etc
   rtn: String; // efectivo, tarjeta, transferencia, etc
+  CAI: String; // Numero CAI del SAR
   details: string; //detalles de la factura
 
   isActive: boolean;
