@@ -119,20 +119,14 @@ export async function loginHandler(req: Request<{}, {}, LoginUserInput["body"]>,
 
         const refreshToken = signRefreshToken(user);
         
-        res.cookie('jwt', refreshToken, {
-            httpOnly: true,
-            sameSite: 'none',
-            secure: true,
-            maxAge: 24 * 60 * 60 * 1000 // 1 día
-        });
-
         const data = omit(user.toJSON(), 'password');
 
         return res.status(200).json({
             ok: true,
             message: 'Inicio de sesion exitoso',
             user: data,
-            accessToken
+            accessToken,
+            refreshToken
         });
 
     } catch (error : any) {
@@ -172,8 +166,7 @@ export async function authenticatedUserHandler(req: Request<{}, {}>, res: Respon
 }
 
 export async function logoutHandler(req: Request<{}, {}, {}>, res: Response) {
-    res.cookie('jwt', '', { maxAge: 0 });
-
+    
     return res.send({
         ok: true,
         message: 'Cerrada sesión'

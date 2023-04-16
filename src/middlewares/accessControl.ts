@@ -2,8 +2,8 @@ import { Request, Response, NextFunction } from "express";
 import config from "config"
 
 export const accessControl = () => {
-    const domain = config.get<string>("domain");
-
+    const domain = config.get<string>('domain');
+  
     return (req: Request, res: Response, next: NextFunction) => {
         
         res.setHeader('Access-Control-Allow-Origin', domain);

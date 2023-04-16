@@ -10,16 +10,18 @@ function createServer() {
   const app = express();
 
   app.use(express.json());
-  app.use(cookieParser());
+  //app.use(cookieParser());
 
   const whiteList = [
     config.get<string>('domain')
   ];
 
-  app.use(cors({ origin: whiteList, credentials: true }));
+  //{ origin: '*', methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'] }
+  
+  app.use(cors());
   app.use(deserializeUser);
 
-  app.use(accessControl());
+  //app.use(accessControl());
 
   app.use(router);
 
