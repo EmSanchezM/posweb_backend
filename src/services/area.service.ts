@@ -1,5 +1,6 @@
 import { isNull, omit } from 'lodash';
-import { DocumentDefinition, FilterQuery, QueryOptions, UpdateQuery } from 'mongoose'; 
+import { QueryFilter, QueryOptions, UpdateQuery } from 'mongoose';
+import { DocumentDefinition } from '../types/mongoose';
 import Area, { AreaDocument } from '../models/area.model';
 
 export async function createArea(input: DocumentDefinition<Omit<AreaDocument, 'createdAt' | 'updatedAt'>>){

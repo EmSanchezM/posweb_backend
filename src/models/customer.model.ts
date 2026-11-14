@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import { PersonDocument } from './person.model';
 
-export interface CustomerDocument extends mongoose.Document {
+export interface CustomerDocument extends mongoose.Document<any> {
     person: PersonDocument['_id'];
     codeCustomer: string;
     payIVA: boolean;

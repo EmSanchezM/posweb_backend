@@ -1,26 +1,19 @@
 import { object, string, number, boolean, TypeOf } from "zod";
+import { required } from './errorMessages';
 
 const payload = {
     body: object({
-        name: string({
-            required_error: 'Nombre es requerido'
-        })
+        name: string(required('Nombre es requerido'))
         .min(2, { message: 'Debe tener 2 o más caracteres de largo'})
         .trim(),
 
         description: string().trim(),
 
-        category: string({
-            required_error: 'Category ID es requerida'
-        }),
+        category: string(required('Category ID es requerida')),
 
-        supplier: string({
-            required_error: 'Supplier ID es requerido'
-        }),
+        supplier: string(required('Supplier ID es requerido')),
 
-        price1: number({
-            required_error: 'Price es requerido'
-        }).positive(),
+        price1: number(required('Price es requerido')).positive(),
 
         price2: number().positive(),
 
@@ -28,14 +21,10 @@ const payload = {
 
         price4: number().positive(),
 
-        cost: number({
-            required_error: 'Costo es requerido'
-        })
+        cost: number(required('Costo es requerido'))
         .positive(),
 
-        inStock: number({
-            required_error: 'Stock es requerido'
-        }).positive(),
+        inStock: number(required('Stock es requerido')).positive(),
 
         brand: string().trim(),
 
@@ -49,9 +38,7 @@ const payload = {
 
         size: string().trim(),
 
-        minCount: number({
-            required_error: 'Cantidad minima es requerida'
-        }).positive(),
+        minCount: number(required('Cantidad minima es requerida')).positive(),
 
         expiredDate: string().trim(),
 
@@ -108,9 +95,7 @@ const updatePayload = {
 
 const params = {
     params: object({
-        productId: string({
-            required_error: 'Product ID es requerido'
-        }),
+        productId: string(required('Product ID es requerido')),
     }),
 };
 

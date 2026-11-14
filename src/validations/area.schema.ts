@@ -1,27 +1,20 @@
 import { object, string, number, TypeOf } from "zod";
+import { required } from './errorMessages';
 
 const payload = {
     body: object({
-        index: number({
-            required_error: 'Indice de area padre es requerida'
-        })
+        index: number(required('Indice de area padre es requerida'))
         .positive(),
 
-        parentCode: number({
-            required_error: 'Area padre es requerido'
-        })
+        parentCode: number(required('Area padre es requerido'))
         .positive(),
 
-        nameArea: string({
-            required_error: 'Nombre de area es requerido'
-        }).min(2, { message: 'Debe tener 2 o más caracteres de largo'})
+        nameArea: string(required('Nombre de area es requerido')).min(2, { message: 'Debe tener 2 o más caracteres de largo'})
         .trim(),
 
-        employee: string({
-            required_error: 'Employee ID es requerido'
-        }),
+        employee: string(required('Employee ID es requerido')),
 
-        phoneArea: string({ required_error: 'Telefono es requerido'}).trim(),
+        phoneArea: string(required('Telefono es requerido')).trim(),
 
         details: string().trim()
     })
@@ -44,7 +37,7 @@ const updatePayload = {
 
         employee: string(),
 
-        phoneArea: string({ required_error: 'Telefono es requerido'}).trim(),
+        phoneArea: string(required('Telefono es requerido')).trim(),
 
         details: string().trim().optional()
 
@@ -53,9 +46,7 @@ const updatePayload = {
 
 const params = {
     params: object({
-        areaId: string({
-            required_error: 'Area ID es requerido'
-        }),
+        areaId: string(required('Area ID es requerido')),
     }),
 };
 

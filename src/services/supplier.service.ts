@@ -1,5 +1,6 @@
 import { isNull, omit } from 'lodash';
-import { DocumentDefinition, FilterQuery, QueryOptions, UpdateQuery } from 'mongoose'; 
+import { QueryFilter, QueryOptions, UpdateQuery } from 'mongoose';
+import { DocumentDefinition } from '../types/mongoose';
 import Supplier, { SupplierDocument } from '../models/supplier.model';
 
 export async function createSupplier(input: DocumentDefinition<Omit<SupplierDocument, 'createdAt' | 'updatedAt'>>){

@@ -1,9 +1,9 @@
 import {
-  DocumentDefinition,
-  FilterQuery,
+  QueryFilter,
   QueryOptions,
   UpdateQuery,
 } from 'mongoose';
+import { DocumentDefinition } from '../types/mongoose';
 import Order, { OrderDocument } from '../models/orders.model';
 
 export async function createOrder(

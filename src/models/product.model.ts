@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import { CategoryDocument } from './category.model';
 import { SupplierDocument } from './supplier.model';
 
-export interface ProductDocument extends mongoose.Document {
+export interface ProductDocument extends mongoose.Document<any> {
     codeProduct: string;
     name: string;
     description: string;

@@ -1,4 +1,5 @@
-import { DocumentDefinition, FilterQuery, QueryOptions, UpdateQuery } from 'mongoose'; 
+import { QueryFilter, QueryOptions, UpdateQuery } from 'mongoose';
+import { DocumentDefinition } from '../types/mongoose';
 import Address, { AddressDocument } from '../models/address.model';
 
 export async function createAddress(input: DocumentDefinition<Omit<AddressDocument, 'createdAt' | 'updatedAt'>>){

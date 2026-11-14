@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-export interface CategoryDocument extends mongoose.Document {
+export interface CategoryDocument extends mongoose.Document<any> {
     index: number;
     parentCode: number;
     codeCategory: string;

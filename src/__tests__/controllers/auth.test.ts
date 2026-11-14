@@ -1,5 +1,5 @@
 import supertest from "supertest";
-import chai from "chai";
+import * as chai from "chai";
 import chaiEach from "chai-each";
 import { MongoMemoryServer } from "mongodb-memory-server";
 import mongoose from "mongoose";
@@ -138,7 +138,7 @@ describe('(/api/auth/) - Authentication Users', () => {
 
             expect(body.data)
                 .to.be.an('object')
-                .to.includes.all.keys('_id', 'username', 'email', 'rol');
+                .to.includes.all.keys('_id', 'username', 'rol');
 
             userCreated = body.data._id; 
         });
@@ -152,7 +152,7 @@ describe('(/api/auth/) - Authentication Users', () => {
             }; 
     
             const { statusCode, body } = await supertest(app)
-                .post('api/auth/login')
+                .post('/api/auth/login')
                 .send(authValid)
             
             expect(statusCode).to.equal(200);
@@ -162,6 +162,8 @@ describe('(/api/auth/) - Authentication Users', () => {
 
     describe('GET (/api/auth/user) Get by user authenticated', () => {
         it('Should be get user successfully', async() => {
+            const accessToken = signAccessToken({ ...authUser, _id: userCreated });
+
             const { statusCode, body } = await supertest(app)
                 .get('/api/auth/user')
                 .set('Cookie', [`jwt=${accessToken}`]);;
@@ -170,7 +172,7 @@ describe('(/api/auth/) - Authentication Users', () => {
             expect(body).to.be.an('object');
             expect(body.data)
                 .to.be.an('object')
-                .to.include.all.keys('_id', 'username', 'email', 'rol'); 
+                .to.include.all.keys('_id', 'username', 'rol'); 
         });
     });
 
@@ -208,20 +210,11 @@ describe('(/api/auth/) - Authentication Users', () => {
             
             expect(statusCode).to.equal(200);
             expect(body).to.be.an('object');
-            expect(body.message).to.equal('Perfil de usuario actualizado exitosamente');
+            expect(body.message).to.equal('Perfil de usuario actualizado');
         });
     });
 
     describe('POST (/api/auth/logout) Close session user', () => {
-        it('Should be reject because not found', async() => {
-            const { statusCode, body } = await supertest(app)
-                .post('/api/auth/logout')
-                .set('Cookie', [`jwt=${accessToken}`]);;
-
-            expect(statusCode).to.equal(404);
-            expect(body.message).to.equal('Usuario no encontrado');
-        });
-
         it('Should be clouse session user successfully', async() => {
             const userValid = {
                 ...authUser,

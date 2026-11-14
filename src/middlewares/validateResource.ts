@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
-import { AnyZodObject } from 'zod';
+import { ZodError, ZodType } from 'zod';
 
-const validate = (schemma: AnyZodObject) => (req:Request, res:Response, next: NextFunction) => {
+const validate = (schemma: ZodType) => (req:Request, res:Response, next: NextFunction) => {
     try {
         schemma.parse({
             body: req.body,
@@ -10,7 +10,7 @@ const validate = (schemma: AnyZodObject) => (req:Request, res:Response, next: Ne
         });
         next();
     } catch (error : any) {
-        return res.status(400).send(error.errors);
+        return res.status(400).send(error instanceof ZodError ? error.issues : error.errors);
     }
 }
 

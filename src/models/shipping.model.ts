@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import { CustomerDocument } from './customer.model';
 import { AddressDocument } from './address.model';
 
-export interface ShippingDocument extends mongoose.Document {
+export interface ShippingDocument extends mongoose.Document<any> {
   customer: CustomerDocument['_id'];
   cost: Number; 
   status: String; 
