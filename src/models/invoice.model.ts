@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import { OrderDocument } from './orders.model';
 import { EmployeeDocument } from './employee.model';
 
-export interface InvoiceDocument extends mongoose.Document {
+export interface InvoiceDocument extends mongoose.Document<any> {
   number: String; // efectivo, tarjeta, transferencia, etc
   order: OrderDocument['_id']; // id de la orden a la que pertenece
   employee: EmployeeDocument['_id']; // empleado que la creado la factura , no la orden

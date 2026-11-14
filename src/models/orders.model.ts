@@ -3,7 +3,7 @@ import { EmployeeDocument } from './employee.model';
 import { ShippingDocument } from './shipping.model';
 import { CustomerDocument } from './customer.model';
 
-export interface OrderDocument extends mongoose.Document {
+export interface OrderDocument extends mongoose.Document<any> {
   orderNumber: number;
   channel: string; //pedido web, desde mesa, mesero
   orderType: string; //llevar, comer aqui, recoger

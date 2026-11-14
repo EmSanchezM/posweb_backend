@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import { OrderDocument } from './orders.model';
 import { ProductDocument } from './product.model';
 
-export interface OrderDetailDocument extends mongoose.Document {
+export interface OrderDetailDocument extends mongoose.Document<any> {
   order: OrderDocument['_id']; 
   product: ProductDocument['_id'];
   quantity: Number; 

@@ -31,18 +31,15 @@ const userSchema = new mongoose.Schema<IUser, mongoose.Model<IUser, {}, IUserMet
     versionKey: false
 });
 
-userSchema.pre('save', async function (next){
+// Mongoose 9 no longer passes `next` to pre hooks; async hooks resolve on return.
+userSchema.pre('save', async function (){
     const user = this;
 
     if(!user.isModified('password')){
-        return next();
+        return;
     }
 
-    const hash = await hashPassword(user.password);
-
-    user.password = hash;
-
-    return next();
+    user.password = await hashPassword(user.password);
 });
 
 userSchema.methods.comparePassword = async function(candidatePassword: string): Promise<boolean>{

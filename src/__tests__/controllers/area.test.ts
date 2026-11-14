@@ -1,5 +1,5 @@
 import supertest from "supertest";
-import chai from "chai";
+import * as chai from "chai";
 import chaiEach from "chai-each";
 import { MongoMemoryServer } from "mongodb-memory-server";
 import mongoose from "mongoose";

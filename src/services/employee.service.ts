@@ -1,5 +1,6 @@
 import { isNull, omit } from 'lodash';
-import { DocumentDefinition, FilterQuery, QueryOptions, UpdateQuery } from 'mongoose'; 
+import { QueryFilter, QueryOptions, UpdateQuery } from 'mongoose';
+import { DocumentDefinition } from '../types/mongoose';
 import Employee, { EmployeeDocument } from '../models/employee.model';
 
 export async function createEmployee(input: DocumentDefinition<Omit<EmployeeDocument, 'createdAt' | 'updatedAt'>>){

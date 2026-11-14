@@ -1,5 +1,6 @@
 import { isNull, omit } from 'lodash';
-import { DocumentDefinition, FilterQuery, QueryOptions, UpdateQuery } from 'mongoose'; 
+import { QueryFilter, QueryOptions, UpdateQuery } from 'mongoose';
+import { DocumentDefinition } from '../types/mongoose';
 import Product, { ProductDocument } from '../models/product.model';
 
 export async function createProduct(input: DocumentDefinition<Omit<ProductDocument, 'createdAt' | 'updatedAt'>>){

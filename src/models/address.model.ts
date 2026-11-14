@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import { CustomerDocument } from './customer.model';
 
-export interface AddressDocument extends mongoose.Document {
+export interface AddressDocument extends mongoose.Document<any> {
   customer: CustomerDocument['_id']; //aqui etan los datos de la direccion de entrega
   name: String; // casa , trabajo, etc
   city: String;

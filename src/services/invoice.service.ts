@@ -1,9 +1,9 @@
 import {
-  DocumentDefinition,
-  FilterQuery,
+  QueryFilter,
   QueryOptions,
   UpdateQuery,
 } from 'mongoose';
+import { DocumentDefinition } from '../types/mongoose';
 import Invoice, { InvoiceDocument } from '../models/invoice.model';
 
 export async function createInvoice(

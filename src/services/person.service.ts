@@ -1,5 +1,6 @@
 import { isNull, omit } from 'lodash';
-import { DocumentDefinition, FilterQuery, QueryOptions, UpdateQuery } from 'mongoose'; 
+import { QueryFilter, QueryOptions, UpdateQuery } from 'mongoose';
+import { DocumentDefinition } from '../types/mongoose';
 import Person, { PersonDocument } from '../models/person.model';
 
 export async function createPerson(input: DocumentDefinition<Omit<PersonDocument, 'createdAt' | 'updatedAt'>>){

@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-export interface PersonDocument extends mongoose.Document {
+export interface PersonDocument extends mongoose.Document<any> {
     identidad: string;
     name: string;
     lastName: string; 

@@ -250,7 +250,7 @@ export async function deleteUserHandler(
             });
         }
 
-       await deactivateUser(user._id, { isActive: !user.isActive });
+       await deactivateUser(user._id.toString(), { isActive: !user.isActive });
 
         return res.status(200).json({
             ok: true, 

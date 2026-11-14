@@ -1,50 +1,29 @@
 import { object, string, number, boolean, date, TypeOf } from 'zod';
+import { required } from './errorMessages';
 
 const payload = {
   body: object({
-    number: string({
-      required_error: 'El Nunero de Factura es requerida',
-    }).trim(),
+    number: string(required('El Nunero de Factura es requerida')).trim(),
 
-    CAI: string({
-      required_error: 'El CAI de Factura es requerida',
-    }).trim(),
+    CAI: string(required('El CAI de Factura es requerida')).trim(),
 
-    employee: string({
-      required_error: 'El employeeId de Factura es requerida',
-    }).trim(),
+    employee: string(required('El employeeId de Factura es requerida')).trim(),
 
-    order: string({
-      required_error: 'El orderId de Factura es requerida',
-    }).trim(),
+    order: string(required('El orderId de Factura es requerida')).trim(),
 
-    dateTime: date({
-      required_error: 'La Fecha de Factura es requerida',
-    }),
+    dateTime: date(required('La Fecha de Factura es requerida')),
 
-    subTotal: number({
-      required_error: 'El SubTotal es requerido',
-    }).positive(),
+    subTotal: number(required('El SubTotal es requerido')).positive(),
 
-    discount: number({
-      required_error: 'El Descount es requerido',
-    }).positive(),
+    discount: number(required('El Descount es requerido')).positive(),
 
-    tax: number({
-      required_error: 'El Impuesto es requerido',
-    }).positive(),
+    tax: number(required('El Impuesto es requerido')).positive(),
 
-    shippingCost: number({
-      required_error: 'El shippingCost es requerido',
-    }).positive(),
+    shippingCost: number(required('El shippingCost es requerido')).positive(),
 
-    tips: number({
-      required_error: 'La Propina es requerida',
-    }).positive(),
+    tips: number(required('La Propina es requerida')).positive(),
 
-    total: number({
-      required_error: 'El Total es requerido',
-    }).positive(),
+    total: number(required('El Total es requerido')).positive(),
 
     paymentMethod: string().trim(),
 
@@ -60,49 +39,27 @@ const payload = {
 
 const updatePayload = {
   body: object({
-    number: string({
-      required_error: 'El Nunero de Factura es requerida',
-    }).trim(),
+    number: string(required('El Nunero de Factura es requerida')).trim(),
 
-    dateTime: date({
-      required_error: 'La Fecha de Factura es requerida',
-    }),
+    dateTime: date(required('La Fecha de Factura es requerida')),
 
-    CAI: string({
-      required_error: 'El CAI de Factura es requerida',
-    }).trim(),
+    CAI: string(required('El CAI de Factura es requerida')).trim(),
 
-    employee: string({
-      required_error: 'El employeeId de Factura es requerida',
-    }).trim(),
+    employee: string(required('El employeeId de Factura es requerida')).trim(),
 
-    order: string({
-      required_error: 'El orderId de Factura es requerida',
-    }).trim(),
+    order: string(required('El orderId de Factura es requerida')).trim(),
 
-    subTotal: number({
-      required_error: 'El SubTotal es requerido',
-    }).positive(),
+    subTotal: number(required('El SubTotal es requerido')).positive(),
 
-    discount: number({
-      required_error: 'El Descount es requerido',
-    }).positive(),
+    discount: number(required('El Descount es requerido')).positive(),
 
-    tax: number({
-      required_error: 'El Impuesto es requerido',
-    }).positive(),
+    tax: number(required('El Impuesto es requerido')).positive(),
 
-    shippingCost: number({
-      required_error: 'El shippingCost es requerido',
-    }).positive(),
+    shippingCost: number(required('El shippingCost es requerido')).positive(),
 
-    tips: number({
-      required_error: 'La Propina es requerida',
-    }).positive(),
+    tips: number(required('La Propina es requerida')).positive(),
 
-    total: number({
-      required_error: 'El Total es requerido',
-    }).positive(),
+    total: number(required('El Total es requerido')).positive(),
 
     paymentMethod: string().trim(),
 
@@ -116,9 +73,7 @@ const updatePayload = {
 
 const params = {
   params: object({
-    invoiceId: string({
-      required_error: 'Invoice ID es requerido',
-    }),
+    invoiceId: string(required('Invoice ID es requerido')),
   }),
 };
 

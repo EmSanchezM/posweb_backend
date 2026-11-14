@@ -1,4 +1,5 @@
-import { DocumentDefinition, FilterQuery, QueryOptions, UpdateQuery } from 'mongoose'; 
+import { QueryFilter, QueryOptions, UpdateQuery } from 'mongoose';
+import { DocumentDefinition } from '../types/mongoose';
 import Shipping, { ShippingDocument } from '../models/shipping.model';
 
 export async function createShipping(input: DocumentDefinition<Omit<ShippingDocument, 'createdAt' | 'updatedAt'>>){

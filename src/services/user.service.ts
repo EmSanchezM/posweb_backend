@@ -1,5 +1,6 @@
 import { isNull, omit } from 'lodash';
-import { DocumentDefinition, FilterQuery, QueryOptions, UpdateQuery } from 'mongoose'; 
+import { QueryFilter, QueryOptions, UpdateQuery } from 'mongoose';
+import { DocumentDefinition } from '../types/mongoose';
 import User, { UserDocument } from '../models/user.model';
 
 export async function createUser(input: DocumentDefinition<Omit<UserDocument, 'createdAt' | 'updatedAt' | 'comparePassword'>>){

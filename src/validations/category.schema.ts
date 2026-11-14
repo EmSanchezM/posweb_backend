@@ -1,18 +1,13 @@
 import { object, string, number, TypeOf } from "zod";
+import { required } from './errorMessages';
 
 const payload = {
     body: object({
-        index: number({
-            required_error: 'Indice de categoria padre es requerida'
-        }),
+        index: number(required('Indice de categoria padre es requerida')),
 
-        parentCode: number({
-            required_error: 'Area padre es requerido'
-        }),
+        parentCode: number(required('Area padre es requerido')),
 
-        nameCategory: string({
-            required_error: 'Nombre de categoría es requirido'
-        }).min(2, { message: 'Debe tener 2 o más caracteres de largo'})
+        nameCategory: string(required('Nombre de categoría es requirido')).min(2, { message: 'Debe tener 2 o más caracteres de largo'})
         .trim(),
 
         description: string().trim()
@@ -37,9 +32,7 @@ const updatePayload = {
 
 const params = {
     params: object({
-        categoryId: string({
-            required_error: 'Category ID es requerido'
-        }),
+        categoryId: string(required('Category ID es requerido')),
     }),
 };
 

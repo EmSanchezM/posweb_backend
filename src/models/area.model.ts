@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import { EmployeeDocument } from './employee.model';
 
-export interface AreaDocument extends mongoose.Document {
+export interface AreaDocument extends mongoose.Document<any> {
     index: number;
     parentCode: number;
     codeArea: string;

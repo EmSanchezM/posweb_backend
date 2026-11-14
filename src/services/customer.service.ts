@@ -1,4 +1,5 @@
-import { DocumentDefinition, FilterQuery, QueryOptions, UpdateQuery } from 'mongoose'; 
+import { QueryFilter, QueryOptions, UpdateQuery } from 'mongoose';
+import { DocumentDefinition } from '../types/mongoose';
 import Customer, { CustomerDocument } from '../models/customer.model';
 
 export async function createCustomer(input: DocumentDefinition<Omit<CustomerDocument, 'createdAt' | 'updatedAt'>>){

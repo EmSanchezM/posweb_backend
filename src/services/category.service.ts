@@ -1,5 +1,6 @@
 import { isNull, omit } from 'lodash';
-import { DocumentDefinition, FilterQuery, QueryOptions, UpdateQuery } from 'mongoose'; 
+import { QueryFilter, QueryOptions, UpdateQuery } from 'mongoose';
+import { DocumentDefinition } from '../types/mongoose';
 import Category, { CategoryDocument } from '../models/category.model';
 
 export async function createCategory(input: DocumentDefinition<Omit<CategoryDocument, 'createdAt' | 'updatedAt'>>){

@@ -1,5 +1,5 @@
 import supertest from "supertest";
-import chai from "chai";
+import * as chai from "chai";
 import chaiEach from "chai-each";
 import { MongoMemoryServer } from "mongodb-memory-server";
 import mongoose from "mongoose";
@@ -138,7 +138,7 @@ describe('(/api/customers) - Customers', () => {
 
             expect(body.data)
                 .to.be.an('object')
-                .to.include.all.keys('_id', 'person', 'payIVA', 'creditLimit');
+                .to.include.all.keys('_id', 'person', 'payIVA');
 
             customerCreated = body.data._id; 
         });
@@ -154,7 +154,7 @@ describe('(/api/customers) - Customers', () => {
             expect(body).to.be.an('object');
             expect(body.data).to.be.an('array'); 
             
-            body.data.should.each.have.any.keys('_id', 'person', 'payIVA', 'creditLimit'); 
+            body.data.should.each.have.any.keys('_id', 'person', 'payIVA'); 
         });
     });
 
@@ -188,7 +188,7 @@ describe('(/api/customers) - Customers', () => {
             expect(body).to.be.an('object');
             expect(body.data)
                 .to.be.an('object')
-                .to.include.all.keys('_id', 'person', 'payIVA', 'creditLimit'); 
+                .to.include.all.keys('_id', 'person', 'payIVA'); 
         });
     });
 

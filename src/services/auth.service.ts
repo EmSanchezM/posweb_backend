@@ -1,5 +1,6 @@
 import { omit } from "lodash";
-import { DocumentDefinition } from "mongoose";
+import { } from 'mongoose';
+import { DocumentDefinition } from '../types/mongoose';
 import { UserDocument } from "../models/user.model";
 import { signJwt, signJwtRefresh } from "../utils/jwt";
 
