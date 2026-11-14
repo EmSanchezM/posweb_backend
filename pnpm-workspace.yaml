@@ -1,5 +1,6 @@
 allowBuilds:
-  # The MongoDB binary is downloaded lazily on the first test run.
   '@parcel/watcher': false
-  mongodb-memory-server: false
+  # Downloads the MongoDB binary at install time; downloading it lazily
+  # inside a Jest hook times out and leaves a truncated binary behind.
+  mongodb-memory-server: true
   unrs-resolver: true
