@@ -1,0 +1,5 @@
+allowBuilds:
+  # The MongoDB binary is downloaded lazily on the first test run.
+  '@parcel/watcher': false
+  mongodb-memory-server: false
+  unrs-resolver: true
